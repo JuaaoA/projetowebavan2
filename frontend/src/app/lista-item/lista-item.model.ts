@@ -8,6 +8,7 @@ export class ModeloAba {
 export class ModeloTarefa {
     constructor(
         public nome : string,
-        public local : string
+        public local : string,
+        public modelo? : string
     ){}
 }

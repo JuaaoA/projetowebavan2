@@ -4,11 +4,16 @@ var router = express.Router();
 const Task = require('../models/tasks')
 
 router.post('/', async function (req, res, next) {
+
+    console.log(req.body);
+
     const taskObj = new Task({
-        conteudo: req.body.conteudo,
+        conteudo: req.body.nome,
         local: req.body.local,
         modelo : req.body.modelo
     })
+
+    
 
     try {
         const taskSave = await taskObj.save()

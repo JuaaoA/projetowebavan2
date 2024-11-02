@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ListaItemComponent } from '../lista-item/lista-item.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ServicoListas } from '../lista-item/lista-item.service';
 import { ModeloTarefa } from '../lista-item/lista-item.model';
+
 
 @Component({
   selector: 'app-listas-todo',
@@ -13,8 +14,9 @@ import { ModeloTarefa } from '../lista-item/lista-item.model';
 })
 export class ListasTodoComponent implements OnInit {
 
-  constructor(public listService : ServicoListas) {}
-
+  constructor(public listService : ServicoListas,
+    private alteracao : ChangeDetectorRef
+  ) {}
 
   @Input() todo : ModeloTarefa[] = []
 
@@ -52,26 +54,18 @@ export class ListasTodoComponent implements OnInit {
     const modelo : ModeloTarefa = new ModeloTarefa(form.value.formNovaItem, "");
 
     // Decidir onde colocar o item
-    switch (this.isAdding)
-    {
-      case 'todo':
-        modelo.local = 'todo';
+    modelo.local = this.isAdding;
+    this.listService.AdicionarTarefa(modelo)
+      .subscribe({
+      next: (dadosSucesso: any) => {
+        console.log(dadosSucesso.myMsgSucesso);
 
-        this.todo.push(modelo);
-        break;
-
-      case 'doing':
-        modelo.local = 'doing';
-
-        this.doing.push(modelo);
-        break;
-      
-      case 'done':
-        modelo.local = 'done';
-
-        this.done.push(modelo);
-        break;
-    }
+      },
+      error: (dadosErro) => {
+        console.log(`$== !!Error (subscribe): ${dadosErro.error} ==`);
+        console.log(dadosErro);
+      }
+    });
 
     // Resetar os botões
     this.ToggleIsAdding('none');
@@ -88,6 +82,9 @@ export class ListasTodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.listService.getListaBanco()
+
     setInterval(() => {
       this.UpdateLists();
     }, 100)
