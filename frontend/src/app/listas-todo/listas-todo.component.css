@@ -1,0 +1,40 @@
+.listas_container {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 20px;
+    margin-left: 400px;
+    margin-right: 400px;
+
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.lista_section {
+    display: block;
+    background-color: aqua;
+
+    height: 500px;
+    width: 300px;
+}
+
+.lista_titulo {
+    margin-top: 5px;
+}
+
+.botao_adicionar {
+    background-color: blueviolet;
+    
+    margin-left: 5px;
+    margin-right: 5px;
+
+    border-radius: 1px;
+
+    color: white;
+}
+
+.botao_adicionar:hover {
+    border: solid 3px;
+    border-color: azure;
+}

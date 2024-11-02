@@ -1,0 +1,13 @@
+.tab_container {
+
+    display: inline-block;
+    background-color: violet;
+    height: 30px;
+    width: 180px;
+
+    margin: 5px;
+    border-radius: 5px;
+
+    text-align: center;
+    align-items: center;
+}

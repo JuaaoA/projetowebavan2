@@ -1,0 +1,19 @@
+.topbar_container {
+    background-color: gray;
+    margin: 0px;
+}
+
+.botao_adicionar_aba {
+    display: inline-block;
+    background-color: violet;
+
+    height: 20px;
+    width: 20px;
+
+    text-align: center;
+}
+
+.FormAdicionarAba {
+    margin: 0px;
+    display: inline-block;
+}

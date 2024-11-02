@@ -1,0 +1,111 @@
+<div class="listas_container">
+
+    <div class="lista_section">
+
+        <div class="lista_titulo">
+            Para fazer
+        </div>
+
+        @for (tarefa of this.todo; track $index)
+        {
+            <app-lista-item [modelo]="tarefa"></app-lista-item>
+        }
+
+        @if (isAdding == 'todo')
+        {
+            <div class="input_novo_valor">
+                <form (ngSubmit)="AdicionarItem(refLocalForm)" class="FormAdicionarItem" #refLocalForm="ngForm" ngNativeValidate>
+                    <input type="text" placeholder="Novo Item..." ngModel name="formNovaItem">
+        
+                    <button type="submit" class="botao_confirmar">Confirmar</button>
+                </form>
+            </div>
+        }
+
+        @if (isAdding == 'todo')
+        {
+            <div class="botao_adicionar" href="#" (click)="ToggleIsAdding('todo')">
+                X
+            </div>
+        }
+        @else
+        {
+            <div class="botao_adicionar" href="#" (click)="ToggleIsAdding('todo')">
+                +
+            </div>
+        }
+    </div>
+
+    <div class="lista_section">
+
+        <div class="lista_titulo">
+            Fazendo
+        </div>
+
+        @for (tarefa of this.doing; track $index)
+        {
+            <app-lista-item [modelo]="tarefa"></app-lista-item>
+        }
+
+        @if (isAdding == 'doing')
+        {
+            <div class="input_novo_valor">
+                <form (ngSubmit)="AdicionarItem(refLocalForm)" class="FormAdicionarItem" #refLocalForm="ngForm" ngNativeValidate>
+                    <input type="text" placeholder="Novo Item..." ngModel name="formNovaItem">
+        
+                    <button type="submit" class="botao_confirmar">Confirmar</button>
+                </form>
+            </div>
+        }
+
+        @if (isAdding == 'doing')
+        {
+            <div class="botao_adicionar" href="#" (click)="ToggleIsAdding('doing')">
+                X
+            </div>
+        }
+        @else
+        {
+            <div class="botao_adicionar" href="#" (click)="ToggleIsAdding('doing')">
+                +
+            </div>
+        }
+    </div>
+
+    <div class="lista_section">
+
+        <div class="lista_titulo">
+            Feito
+        </div>
+
+        @for (tarefa of this.done; track $index)
+        {
+            <app-lista-item [modelo]="tarefa"></app-lista-item>
+        }
+
+        @if (isAdding == 'done')
+        {
+            <div class="input_novo_valor">
+                <form (ngSubmit)="AdicionarItem(refLocalForm)" class="FormAdicionarItem" #refLocalForm="ngForm" ngNativeValidate>
+                    <input type="text" placeholder="Novo Item..." ngModel name="formNovaItem">
+        
+                    <button type="submit" class="botao_confirmar">Confirmar</button>
+                </form>
+            </div>
+        }
+
+        @if (isAdding == 'done')
+        {
+            <div class="botao_adicionar" href="#" (click)="ToggleIsAdding('done')">
+                X
+            </div>
+        }
+        @else
+        {
+            <div class="botao_adicionar" href="#" (click)="ToggleIsAdding('done')">
+                +
+            </div>
+        }   
+    </div>
+
+</div>

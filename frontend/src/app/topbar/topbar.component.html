@@ -1,0 +1,11 @@
+<div class="topbar_container">
+
+    @for (msg of this.todo_tabs; track $index) 
+    { 
+        <app-toptab [modeloTab]="msg"/>
+    } @empty 
+    { 
+        Sem abas 
+    }
+
+</div>

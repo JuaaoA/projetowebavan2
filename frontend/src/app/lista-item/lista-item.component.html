@@ -1,0 +1,19 @@
+<div href="#" class="item_container">
+
+    <a href="#" (click)="ToggleOptions()">
+        {{ modelo.nome }}
+    </a>
+
+    @if (clicked)
+    {
+
+        <div class="botoes_container">
+            <button href="#" (click)="MoverTras()">< Retornar</button>
+
+            <button href="#" (click)="RemoverSelf()">Apagar</button>
+
+            <button href="#" (click)="MoverFrente()">Avançar ></button>
+        </div>
+    }
+
+</div>
