@@ -17,7 +17,7 @@ export class ListaItemComponent {
 
   constructor(public listService : ServicoListas) {}
 
-  @Input() modelo : ModeloTarefa = new ModeloTarefa("", "");
+  @Input() modelo : ModeloTarefa = new ModeloTarefa("", "", "", "");
 
   clicked : boolean = false
 
@@ -28,7 +28,21 @@ export class ListaItemComponent {
 
   RemoverSelf()
   {
-    this.listService.ApagarTarefa(this.modelo);
+    this.listService.ApagarTarefa(this.modelo)
+    .subscribe({
+      next: (dadosSucesso: any) => {
+
+        // Apagar no lado do cliente a tarefa que o usuário colocou
+        this.listService.ApagarTarefaServico(this.modelo); 
+
+      },
+      error: (dadosErro) => {
+
+        // Indicar o erro
+        console.log(`$== !!Error (subscribe): ${dadosErro.info_extra} ==`);
+        console.log(dadosErro);
+      }
+    });
   }
 
   MoverFrente()

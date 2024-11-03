@@ -25,57 +25,45 @@ export class ServicoListas {
         "Modelo 1": {
 
             "todo": [
-                new ModeloTarefa('Lavar o carro', "todo"),
-                new ModeloTarefa('Fazer compras no mercado', "todo"),
-                new ModeloTarefa('Faxina na casa', "todo")
+                
             ],
 
             "doing": [
-                new ModeloTarefa('Arrumar o pc', "doing"),
-                new ModeloTarefa('Abastecer o carro', "doing")
+                
             ],
 
             "done": [
-                new ModeloTarefa('Arrumar a cama', "done"),
-                new ModeloTarefa('Tomar café', "done")
+                
             ]
         },
 
         "Modelo 2": {
 
             "todo": [
-                new ModeloTarefa('Implementar requisito 3', "todo"),
-                new ModeloTarefa('Resolver bug numero 9', "todo"),
-                new ModeloTarefa('Remover implementação', "todo")
+                
             ],
 
             "doing": [
-                new ModeloTarefa('Realizar conexão com o banco', "doing"),
-                new ModeloTarefa('Realizar conexão com o backend', "doing")
+                
             ],
 
             "done": [
-                new ModeloTarefa('Implementar requisito 2', "done"),
-                new ModeloTarefa('Resolver bug numero 8', "done")
+                
             ]
         },
 
         "Modelo 3": {
 
             "todo": [
-                new ModeloTarefa('Receber os clientes', "todo"),
-                new ModeloTarefa('Finalizar pedidos', "todo"),
-                new ModeloTarefa('Fechar o restaurante', "todo")
+                
             ],
 
             "doing": [
-                new ModeloTarefa('Abrir o restaurante', "doing"),
-                new ModeloTarefa('Arrumar as mesas', "doing")
+                
             ],
 
             "done": [
-                new ModeloTarefa('Ligar a churrasqueira', "done"),
-                new ModeloTarefa('Ligar as luzes', "done")
+                
             ]
         }
     }
@@ -100,20 +88,46 @@ export class ServicoListas {
 
     ApagarTarefa(task : ModeloTarefa)
     {
-        // Remover a tarefa
+        // Remover tarefa no backend
+        return this.http.patch<any>(`${this.baseUrl}/tasks/delete`, task).pipe(
+            catchError((e) => this.errorHandler(e, "adicionarTarefa()"))
+        );
+    }
+
+    ApagarTarefaServico(task : ModeloTarefa)
+    {
+        // Remover a tarefa no cliente
         this.listas[this.lista_selected][task.local].splice(this.listas[this.lista_selected][task.local].indexOf(task), 1);
+    }
+
+    AdicionarTarefaServico(task : ModeloTarefa)
+    {
+        // Definir o modelo que a tarefa foi adicionada
+        task.modelo = this.lista_selected;
+
+        // Adicionar a tarefa no lado do cliente
+        this.listas[this.lista_selected][task.local].push(task);
     }
 
     AdicionarTarefa(task : ModeloTarefa)
     {
-        this.listas[this.lista_selected][task.local].push(task);
-
+        // Definir em que modelo a tarefa foi adicionado
         task.modelo = this.lista_selected;
 
         // Adicionar tarefa no banco de dados
         return this.http.post<any>(`${this.baseUrl}/tasks`, task).pipe(
             catchError((e) => this.errorHandler(e, "adicionarTarefa()"))
         );
+    }
+
+    ConfigurarListas(listas : ModeloTarefa[])
+    {
+        for (var item of listas)
+        {
+            item.modelo?.toString();
+
+            this.listas[item.modelo][item.local].push(item);
+        }
     }
 
     getLista(lista : string)
@@ -125,27 +139,26 @@ export class ServicoListas {
     {
         //
 
-        return this.http.get<any>(`${this.baseUrl}/`).pipe(
+        return this.http.get<any>(`${this.baseUrl}/tasks`).pipe(
             map((responseRecebida : any) => {
                 console.log(responseRecebida.msgSucesso);
                 console.log({nome: responseRecebida.objTask[0].conteudo});
                 console.log({local: responseRecebida.objTask[0].local});
 
-                /*
-                const messageSResponseRecebida = responseRecebida.objSMessageSRecuperadoS;
+                const messageSResponseRecebida = responseRecebida.objTask;
 
-                let transformedCastMessagesModelFrontend: ModeloMensagem[] = [];
+                let transformedCastMessagesModelFrontend: ModeloTarefa[] = [];
                 for (let msg of messageSResponseRecebida) {
                     transformedCastMessagesModelFrontend.push(
-                        new ModeloMensagem(msg.content, msg.user, msg.gender, msg.age, msg.color,msg.icone, msg._id));
+                        new ModeloTarefa(msg.conteudo, msg.local, msg.modelo, msg._id));
                 }
 
                 responseRecebida.objSMessageSRecuperadoS = [...transformedCastMessagesModelFrontend]
 
                 console.log({myMsgSucesso: responseRecebida.myMsgSucesso});
-                console.log({conteudo: responseRecebida.objSMessageSRecuperadoS[0].content})
-                console.log({id: responseRecebida.objSMessageSRecuperadoS[0].messageId})
-                */
+                console.log({conteudo: responseRecebida.objSMessageSRecuperadoS[0].conteudo})
+                console.log({id: responseRecebida.objSMessageSRecuperadoS[0]._id})
+                
                 return responseRecebida;
             }),
             catchError((e) => this.errorHandler(e, "getlistabanco()"))

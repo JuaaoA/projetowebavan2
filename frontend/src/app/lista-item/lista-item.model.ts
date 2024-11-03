@@ -9,6 +9,7 @@ export class ModeloTarefa {
     constructor(
         public nome : string,
         public local : string,
-        public modelo? : string
+        public modelo : string,
+        public id : string
     ){}
 }

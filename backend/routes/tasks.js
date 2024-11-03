@@ -13,8 +13,6 @@ router.post('/', async function (req, res, next) {
         modelo : req.body.modelo
     })
 
-    
-
     try {
         const taskSave = await taskObj.save()
         console.log(taskSave)
@@ -26,6 +24,49 @@ router.post('/', async function (req, res, next) {
     } catch (err) {
         return res.status(500).json({
             errorTitle: "Server-side: Erro ao salvar a tarefa" ,
+            error: err
+        })
+    }
+})
+
+router.patch('/delete', async function (req, res, next) {
+    try {
+        // Pegar o ID da tarefa
+        const id_task = req.body.id;
+        console.log(id_task);
+
+        // Prosseguir com a exclusão
+        await Task.deleteOne({ _id: id_task });
+
+        // Caso tudo der certo
+        return res.status(200).json({
+            success: "Server-side: Tarefa excluída com sucesso"
+        })
+    }
+    catch (err)
+    {
+        return res.status(500).json({
+            errorTitle: "Server-side: Erro ao apagar a tarefa",
+            error: err
+        })
+    }
+})
+
+router.patch('/', async function (req, res, next) {
+    try {
+        // Pegar os valores da requisição
+        const taskEditada = {
+            _id: req.body.id,
+            local: req.body.local
+        }
+
+        // Aplicar no banco de dados
+    }
+    catch (err)
+    {
+        // Indicar que ocorreu um erro
+        return res.status(200).json({
+            errorTitle: "Server-side: Erro ao editar tarefa",
             error: err
         })
     }
