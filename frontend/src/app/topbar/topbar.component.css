@@ -1,6 +1,9 @@
 .topbar_container {
-    background-color: gray;
+    background-color: #4e274a;
     margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .botao_adicionar_aba {

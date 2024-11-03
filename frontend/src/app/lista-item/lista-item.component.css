@@ -1,11 +1,10 @@
 .item_container {
     text-align: center;
     text-decoration: none;
-
     margin: 10px;
     background-color: beige;
     border-radius: 4px;
-
+    word-break:normal;
     padding-top: 10px;
     padding-bottom: 10px;
 }

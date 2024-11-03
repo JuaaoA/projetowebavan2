@@ -1,21 +1,27 @@
 .listas_container {
     display: flex;
     justify-content: space-between;
-
+    border: white 2px solid;
     margin-top: 20px;
     margin-left: 400px;
     margin-right: 400px;
 
     border-radius: 10px;
-
     text-align: center;
+    overflow: scroll;
+    scroll-behavior: smooth;
+}
+
+.listas_container::-webkit-scrollbar {
+    display: none;
 }
 
 .lista_section {
     display: block;
-    background-color: aqua;
-
-    height: 500px;
+    color: white;
+    border-radius: 15px;
+    background-color: #653562;
+    height: 400px;
     width: 300px;
 }
 
@@ -37,4 +43,14 @@
 .botao_adicionar:hover {
     border: solid 3px;
     border-color: azure;
+}
+
+.input_novo_valor input {
+    width: 127px;
+    margin-bottom: 5px;
+}
+
+.input_novo_valor button {
+    width: 100px;
+    margin-bottom: 5px;
 }

@@ -1,13 +1,23 @@
 .tab_container {
 
     display: inline-block;
-    background-color: violet;
+    background-color: #381a32;
+    color: white;
     height: 30px;
     width: 180px;
-
+    padding-bottom: 0;
+    padding-top: 10px;
     margin: 5px;
     border-radius: 5px;
 
     text-align: center;
     align-items: center;
 }
+
+.tab_container a{
+    display: block;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
