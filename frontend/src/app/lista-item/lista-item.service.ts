@@ -78,6 +78,20 @@ export class ServicoListas {
 
     MoverParaLista(task : ModeloTarefa, location : string) 
     {
+        // Mover para o lado do cliente
+        this.MoverParaListaServico(task, location);
+
+        // Alterar antes o local da tarefa
+        task.local = location;
+
+        // Remover tarefa no backend
+        return this.http.patch<any>(`${this.baseUrl}/tasks/`, task).pipe(
+            catchError((e) => this.errorHandler(e, "adicionarTarefa()"))
+        );
+    }
+
+    MoverParaListaServico(task : ModeloTarefa, location : string) 
+    {
         // Primeiro, remover a tarefa anterior
         this.listas[this.lista_selected][task.local].splice(this.listas[this.lista_selected][task.local].indexOf(task), 1);
 

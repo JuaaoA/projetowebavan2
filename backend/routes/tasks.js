@@ -61,6 +61,12 @@ router.patch('/', async function (req, res, next) {
         }
 
         // Aplicar no banco de dados
+        await Task.findByIdAndUpdate(taskEditada._id, {local: taskEditada.local})
+
+        // Indicar que tudo deu certo
+        return res.status(200).json({
+            sucess: "Server-side: Tarefa editada com sucesso"
+        })
     }
     catch (err)
     {

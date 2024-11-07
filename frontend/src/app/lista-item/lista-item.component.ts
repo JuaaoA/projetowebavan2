@@ -66,6 +66,20 @@ export class ListaItemComponent {
     }
 
     this.listService.MoverParaLista(this.modelo, target)
+    .subscribe({
+      next: (dadosSucesso: any) => {
+
+        // Se deu certo, mudar no lado do cliente
+        this.listService.MoverParaListaServico(this.modelo, target);
+
+      },
+      error: (dadosErro) => {
+
+        // Indicar o erro
+        console.log(`$== !!Error (subscribe): ${dadosErro.info_extra} ==`);
+        console.log(dadosErro);
+      }
+    });
   }
 
   MoverTras()
@@ -88,5 +102,17 @@ export class ListaItemComponent {
     }
 
     this.listService.MoverParaLista(this.modelo, target)
+    .subscribe({
+      next: (dadosSucesso: any) => {
+        // Se deu certo, avisar
+        console.log("Movido com sucesso.")
+      },
+      error: (dadosErro) => {
+
+        // Indicar o erro
+        console.log(`$== !!Error (subscribe): ${dadosErro.info_extra} ==`);
+        console.log(dadosErro);
+      }
+    });
   }
 }
